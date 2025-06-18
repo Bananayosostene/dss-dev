@@ -68,9 +68,7 @@ export default function ContactSection() {
                     <h3 className="font-semibold text-gray-900 mb-1">
                       We're Open
                     </h3>
-                    <p className="text-gray-600">
-                      Monday - Friday 08.00 - 18.00
-                    </p>
+                    <p className="text-gray-600">24/7</p>
                   </div>
                 </div>
               </div>
@@ -115,7 +113,7 @@ export default function ContactSection() {
                     <h3 className="font-semibold text-gray-900 mb-1">
                       Send a Message
                     </h3>
-                    <p className="text-gray-600">aamityltd@gmail.com</p>
+                    <p className="text-gray-600">dss@gmail.com</p>
                   </div>
                 </div>
               </div>

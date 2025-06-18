@@ -18,7 +18,7 @@ export default function ProjectsPage() {
             <span className="mx-2">{">"}</span>
             <span>Projects</span>
           </nav>
-          <h1 className="text-xl font-bold mb-4">PROJECTS</h1>
+          <h1 className="text-xl font-bold mb-4">Digital Support Solutions</h1>
           <p className=" max-w-2xl mx-auto">
             Transform Your Garden into a Personal Paradise!
           </p>

@@ -1,7 +1,7 @@
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
-import ServicesGrid from "@/components/ServicesGrid"
-import { services } from "@/lib/data"
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import ServicesGrid from "@/components/ServicesGrid";
+import { services } from "@/lib/data";
 
 export default function ServicesPage() {
   return (
