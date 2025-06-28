@@ -1,6 +1,8 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
-  Leaf,
   Facebook,
   Twitter,
   Instagram,
@@ -9,139 +11,248 @@ import {
 } from "lucide-react";
 
 export default function Footer() {
+  const [isVisible, setIsVisible] = useState(false);
+  const [animationKey, setAnimationKey] = useState(0);
+  const footerRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          setAnimationKey((prev) => prev + 1);
+        } else {
+          setIsVisible(false);
+        }
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "-50px 0px",
+      }
+    );
+
+    if (footerRef.current) {
+      observer.observe(footerRef.current);
+    }
+
+    return () => {
+      if (footerRef.current) {
+        observer.unobserve(footerRef.current);
+      }
+    };
+  }, []);
+
+  const services = [
+    "IT Helpdesk Support",
+    "Cybersecurity Solutions",
+    "Data Collection Services",
+    "Software Development",
+    "Website Design",
+    "Network Setup & Maintenance",
+    "Data Backup & Recovery",
+    "Social Media Management",
+    "E-waste Management",
+    "Accounting Services",
+    "ICT4D Solutions",
+    "IT Consulting",
+  ];
+
   return (
     <footer
+      ref={footerRef}
       className="relative bg-cover bg-center bg-no-repeat text-white"
       style={{ backgroundImage: "url(/images/footer-bg.png)" }}
     >
-      <div className="absolute inset-0 bg-green-900/90"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/70 to-black/80"></div>
+      <div className="absolute inset-0 bg-[#F17105]/5"></div>
+
       <div className="relative z-10">
         <div className="container mx-auto px-4 py-12">
           <div className="grid lg:grid-cols-6 gap-6">
             {/* Company Info */}
-            <div className="lg:col-span-2">
-              <Link href="/" className="flex items-center space-x-2 mb-4">
-                <Leaf className="w-6 h-6" />
-                <span className="text-xl font-bold">DSS</span>
+            <div
+              key={`company-${animationKey}`}
+              className={`lg:col-span-2 transition-all duration-1000 ${
+                isVisible
+                  ? "animate-fadeInLeft"
+                  : "opacity-0 translate-x-[-50px]"
+              }`}
+            >
+              <Link
+                href="/"
+                key={`logo-${animationKey}`}
+                className={`flex items-center space-x-2 mb-4 transition-all duration-800 ${
+                  isVisible
+                    ? "animate-fadeInUp animation-delay-200"
+                    : "opacity-0 translate-y-[30px]"
+                }`}
+              >
+                <span className="text-xl font-bold hover:text-[#F17105] transition-colors duration-300">
+                  DSS
+                </span>
               </Link>
-              <p className="text-gray-300 mb-4 leading-relaxed text-sm">
+              <p
+                key={`company-desc-${animationKey}`}
+                className={`text-gray-300 mb-4 leading-relaxed text-sm transition-all duration-800 ${
+                  isVisible
+                    ? "animate-fadeInUp animation-delay-400"
+                    : "opacity-0 translate-y-[30px]"
+                }`}
+              >
                 Ready to transform your business with our IT solutions? Contact
                 us today for a free consultation and discover how we can help
                 you achieve your technology goals.
               </p>
-              <div className="flex space-x-3">
-                <Facebook className="w-4 h-4 hover:text-green-300 cursor-pointer transition-colors duration-200" />
-                <Twitter className="w-4 h-4 hover:text-green-300 cursor-pointer transition-colors duration-200" />
-                <Instagram className="w-4 h-4 hover:text-green-300 cursor-pointer transition-colors duration-200" />
-                <Youtube className="w-4 h-4 hover:text-green-300 cursor-pointer transition-colors duration-200" />
-                <MessageCircle className="w-4 h-4 hover:text-green-300 cursor-pointer transition-colors duration-200" />
+              <div
+                key={`social-${animationKey}`}
+                className={`flex space-x-3 transition-all duration-800 ${
+                  isVisible
+                    ? "animate-fadeInUp animation-delay-600"
+                    : "opacity-0 translate-y-[30px]"
+                }`}
+              >
+                {[Facebook, Twitter, Instagram, Youtube, MessageCircle].map(
+                  (Icon, index) => (
+                    <Icon
+                      key={`social-${index}-${animationKey}`}
+                      className="w-4 h-4 hover:text-[#F17105] cursor-pointer transition-all duration-300 hover:scale-125 hover:-translate-y-1"
+                      style={{
+                        animationDelay: `${700 + index * 100}ms`,
+                        transitionDelay: isVisible
+                          ? `${700 + index * 100}ms`
+                          : "0ms",
+                      }}
+                    />
+                  )
+                )}
               </div>
             </div>
 
-            {/* Our Services - Enhanced with more width */}
-            <div className="lg:col-span-3">
-              <h3 className="text-lg font-semibold mb-4 text-center lg:text-left">
+            {/* Our Services */}
+            <div
+              key={`services-${animationKey}`}
+              className={`lg:col-span-3 transition-all duration-1000 ${
+                isVisible
+                  ? "animate-fadeInUp animation-delay-400"
+                  : "opacity-0 translate-y-[50px]"
+              }`}
+            >
+              <h3
+                key={`services-title-${animationKey}`}
+                className={`text-lg font-semibold mb-4 text-center lg:text-left transition-all duration-800 ${
+                  isVisible
+                    ? "animate-fadeInUp animation-delay-600"
+                    : "opacity-0 translate-y-[30px]"
+                }`}
+              >
                 Our Services
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <div className="group">
-                    <span className="text-gray-300 hover:text-green-300 transition-colors duration-200 cursor-pointer block text-sm">
-                      IT Helpdesk Support
-                    </span>
-                  </div>
-                  <div className="group">
-                    <span className="text-gray-300 hover:text-green-300 transition-colors duration-200 cursor-pointer block text-sm">
-                      Cybersecurity Solutions
-                    </span>
-                  </div>
-                  <div className="group">
-                    <span className="text-gray-300 hover:text-green-300 transition-colors duration-200 cursor-pointer block text-sm">
-                      Data Collection Services
-                    </span>
-                  </div>
-                  <div className="group">
-                    <span className="text-gray-300 hover:text-green-300 transition-colors duration-200 cursor-pointer block text-sm">
-                      Software Development
-                    </span>
-                  </div>
-                  <div className="group">
-                    <span className="text-gray-300 hover:text-green-300 transition-colors duration-200 cursor-pointer block text-sm">
-                      Website Design
-                    </span>
-                  </div>
-                  <div className="group">
-                    <span className="text-gray-300 hover:text-green-300 transition-colors duration-200 cursor-pointer block text-sm">
-                      Network Setup & Maintenance
-                    </span>
-                  </div>
+                  {services.slice(0, 6).map((service, index) => (
+                    <div
+                      key={`service-left-${index}-${animationKey}`}
+                      className={`group transition-all duration-800 ${
+                        isVisible
+                          ? "animate-fadeInLeft"
+                          : "opacity-0 translate-x-[-30px]"
+                      }`}
+                      style={{
+                        animationDelay: `${800 + index * 100}ms`,
+                        transitionDelay: isVisible
+                          ? `${800 + index * 100}ms`
+                          : "0ms",
+                      }}
+                    >
+                      <span className="text-gray-300 hover:text-[#F17105] transition-all duration-300 cursor-pointer block text-sm hover:translate-x-2 hover:font-medium relative">
+                        <span className="absolute left-0 w-0 h-0.5 bg-[#F17105] bottom-0 transition-all duration-300 group-hover:w-full"></span>
+                        {service}
+                      </span>
+                    </div>
+                  ))}
                 </div>
                 <div className="space-y-2">
-                  <div className="group">
-                    <span className="text-gray-300 hover:text-green-300 transition-colors duration-200 cursor-pointer block text-sm">
-                      Data Backup & Recovery
-                    </span>
-                  </div>
-                  <div className="group">
-                    <span className="text-gray-300 hover:text-green-300 transition-colors duration-200 cursor-pointer block text-sm">
-                      Social Media Management
-                    </span>
-                  </div>
-                  <div className="group">
-                    <span className="text-gray-300 hover:text-green-300 transition-colors duration-200 cursor-pointer block text-sm">
-                      E-waste Management
-                    </span>
-                  </div>
-                  <div className="group">
-                    <span className="text-gray-300 hover:text-green-300 transition-colors duration-200 cursor-pointer block text-sm">
-                      Accounting Services
-                    </span>
-                  </div>
-                  <div className="group">
-                    <span className="text-gray-300 hover:text-green-300 transition-colors duration-200 cursor-pointer block text-sm">
-                      ICT4D Solutions
-                    </span>
-                  </div>
-                  <div className="group">
-                    <span className="text-gray-300 hover:text-green-300 transition-colors duration-200 cursor-pointer block text-sm">
-                      IT Consulting
-                    </span>
-                  </div>
+                  {services.slice(6).map((service, index) => (
+                    <div
+                      key={`service-right-${index}-${animationKey}`}
+                      className={`group transition-all duration-800 ${
+                        isVisible
+                          ? "animate-fadeInRight"
+                          : "opacity-0 translate-x-[30px]"
+                      }`}
+                      style={{
+                        animationDelay: `${800 + index * 100}ms`,
+                        transitionDelay: isVisible
+                          ? `${800 + index * 100}ms`
+                          : "0ms",
+                      }}
+                    >
+                      <span className="text-gray-300 hover:text-[#F17105] transition-all duration-300 cursor-pointer block text-sm hover:translate-x-2 hover:font-medium relative">
+                        <span className="absolute left-0 w-0 h-0.5 bg-[#F17105] bottom-0 transition-all duration-300 group-hover:w-full"></span>
+                        {service}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
 
             {/* Contact Info */}
-            <div className="lg:col-span-1">
+            <div
+              key={`contact-info-${animationKey}`}
+              className={`lg:col-span-1 transition-all duration-1000 ${
+                isVisible
+                  ? "animate-fadeInRight animation-delay-800"
+                  : "opacity-0 translate-x-[50px]"
+              }`}
+            >
               <div className="space-y-4">
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">We're Open</h3>
-                  <p className="text-gray-300 text-sm font-medium">24/7</p>
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">
-                    Office Location
-                  </h3>
-                  <p className="text-gray-300 text-sm">KN 8 Ave</p>
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">Send a Message</h3>
-                  <p className="text-gray-300 hover:text-green-300 transition-colors cursor-pointer text-sm">
-                    contact@DSS.com
-                  </p>
-                </div>
+                {[
+                  { title: "We're Open", info: "24/7", delay: 1000 },
+                  { title: "Office Location", info: "KN 8 Ave", delay: 1200 },
+                  {
+                    title: "Send a Message",
+                    info: "contact@DSS.com",
+                    delay: 1400,
+                  },
+                ].map((item, index) => (
+                  <div
+                    key={`contact-${index}-${animationKey}`}
+                    className={`hover:transform hover:scale-105 transition-all duration-800 ${
+                      isVisible
+                        ? "animate-fadeInUp"
+                        : "opacity-0 translate-y-[30px]"
+                    }`}
+                    style={{
+                      animationDelay: `${item.delay}ms`,
+                      transitionDelay: isVisible ? `${item.delay}ms` : "0ms",
+                    }}
+                  >
+                    <h3 className="text-lg font-semibold mb-2 hover:text-[#F17105] transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-300 text-sm hover:text-[#F17105] transition-colors cursor-pointer">
+                      {item.info}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-green-700">
+        <div
+          key={`bottom-bar-${animationKey}`}
+          className={`border-t border-[#F17105]/30 transition-all duration-1000 ${
+            isVisible
+              ? "animate-fadeInUp animation-delay-1600"
+              : "opacity-0 translate-y-[30px]"
+          }`}
+        >
           <div className="container mx-auto px-4 py-4">
             <div className="flex flex-col md:flex-row justify-center items-center">
-              <p className="text-gray-300 text-sm mb-2 md:mb-0">
+              <p className="text-gray-300 text-sm mb-2 md:mb-0 hover:text-[#F17105] transition-colors cursor-pointer">
                 © DSS Ltd 2025
               </p>
             </div>

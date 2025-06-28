@@ -33,13 +33,18 @@ export default function ContactForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-2xl text-green-700">Send us a Message</CardTitle>
+        <CardTitle className="text-2xl text-green-700">
+          Send us a Message
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Name *
               </label>
               <Input
@@ -53,7 +58,10 @@ export default function ContactForm() {
               />
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Email *
               </label>
               <Input
@@ -70,7 +78,10 @@ export default function ContactForm() {
 
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="phone"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Phone
               </label>
               <Input
@@ -83,7 +94,10 @@ export default function ContactForm() {
               />
             </div>
             <div>
-              <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="subject"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Subject *
               </label>
               <Input
@@ -99,7 +113,10 @@ export default function ContactForm() {
           </div>
 
           <div>
-            <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="message"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               Message *
             </label>
             <Textarea
@@ -113,11 +130,14 @@ export default function ContactForm() {
             />
           </div>
 
-          <Button type="submit" className="w-full bg-green-600 hover:bg-green-700 text-white py-3">
+          <Button
+            type="submit"
+            className="w-full bg-[#F17105] hover:bg-[#F17105]/90 text-white py-3"
+          >
             Send Message
           </Button>
         </form>
       </CardContent>
     </Card>
-  )
+  );
 }

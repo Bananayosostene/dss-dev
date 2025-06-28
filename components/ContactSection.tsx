@@ -1,8 +1,7 @@
 "use client";
 
 import type React from "react";
-
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -15,13 +14,47 @@ export default function ContactSection() {
     phone: "",
     message: "",
   });
+  const [isVisible, setIsVisible] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [animationKey, setAnimationKey] = useState(0);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          setAnimationKey((prev) => prev + 1); // Force re-animation
+        } else {
+          setIsVisible(false);
+        }
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "-50px 0px",
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
     console.log("Form submitted:", formData);
-    // Reset form
-    setFormData({ name: "", email: "", phone: "", message: "" });
+    setIsSubmitted(true);
+
+    setTimeout(() => {
+      setFormData({ name: "", email: "", phone: "", message: "" });
+      setIsSubmitted(false);
+    }, 2000);
   };
 
   const handleChange = (
@@ -34,13 +67,32 @@ export default function ContactSection() {
   };
 
   return (
-    <section className="py-16 px-5 bg-gray-50">
-      <div className="w-full mx-auto">
-        <div className="mb-12">
-          <h2 className="text-2xl lg:text-2xl font-bold text-gray-800 mb-4">
+    <section ref={sectionRef} className="py-5 px-5 bg-gray-50">
+      <div className="max-w-7xl mx-auto">
+        <div
+          key={`header-${animationKey}`}
+          className={`mb-12 transition-all duration-1000 ${
+            isVisible ? "animate-fadeInUp" : "opacity-0 translate-y-[30px]"
+          }`}
+        >
+          <h2
+            key={`title-${animationKey}`}
+            className={`text-[14px] lg:text-[16px] font-bold text-gray-800 mb-4 transition-all duration-800 ${
+              isVisible
+                ? "animate-fadeInUp animation-delay-200"
+                : "opacity-0 translate-y-[30px]"
+            }`}
+          >
             Send Your Message
           </h2>
-          <p className="text-gray-600 text-lg max-w-3xl">
+          <p
+            key={`description-${animationKey}`}
+            className={`text-gray-600 text-[14px] max-w-3xl transition-all duration-800 ${
+              isVisible
+                ? "animate-fadeInUp animation-delay-400"
+                : "opacity-0 translate-y-[30px]"
+            }`}
+          >
             Whether you have a question, a suggestion, or just want to say
             hello, this is the place to do it. Please fill out the form below
             with your details and message, and we'll get back to you as soon as
@@ -50,133 +102,166 @@ export default function ContactSection() {
 
         <div className="flex items-center justify-between gap-10 md:flex-row flex-col">
           {/* Left */}
-          <div className="flex w-full  bg-[#E1EBE2] lg:w-1/2">
-            <div className="relative h-[450px] w-[350px]">
+          <div
+            key={`left-panel-${animationKey}`}
+            className={`flex w-full bg-[#E1EBE2] lg:w-1/2 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-1000 ${
+              isVisible
+                ? "animate-fadeInLeft animation-delay-600"
+                : "opacity-0 translate-x-[-50px]"
+            }`}
+          >
+            <div className="relative h-[350px] w-1/2 overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-r from-[#F17105]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
               <img
                 src="/images/call-center.jpg?height=400&width=400"
-                alt="Gardening professional"
-                className="w-full h-full object-cover"
+                alt="Contact professional"
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
               />
             </div>
-            <div className="lg:col-span-3  space-y-10">
-              <div className="">
-                <div className="flex items-start space-x-3">
-                  <div className="bg-green-100 p-2 rounded-full">
-                    <Clock className="w-5 h-5 text-green-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">
-                      We're Open
-                    </h3>
-                    <p className="text-gray-600">24/7</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Office Location */}
-              <div className="">
-                <div className="flex items-start space-x-3">
-                  <div className="bg-green-100 p-2 rounded-full">
-                    <MapPin className="w-5 h-5 text-green-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">
-                      Office Location
-                    </h3>
-                    <p className="text-gray-600">KK 523 St, Kigali, Rwanda</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Call Us Directly */}
-              <div className="">
-                <div className="flex items-start space-x-3">
-                  <div className="bg-green-100 p-2 rounded-full">
-                    <Phone className="w-5 h-5 text-green-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">
-                      Call Us Directly
-                    </h3>
-                    <p className="text-gray-600">+250 784 869 860</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Send a Message */}
-              <div className="">
-                <div className="flex items-start space-x-3">
-                  <div className="bg-green-100 p-2 rounded-full">
-                    <Mail className="w-5 h-5 text-green-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">
-                      Send a Message
-                    </h3>
-                    <p className="text-gray-600">dss@gmail.com</p>
+            <div className="lg:col-span-3 p-4 space-y-10">
+              {[
+                { icon: Clock, title: "We're Open", info: "24/7", delay: 800 },
+                {
+                  icon: MapPin,
+                  title: "Office Location",
+                  info: "KK 523 St, Kigali, Rwanda",
+                  delay: 1000,
+                },
+                {
+                  icon: Phone,
+                  title: "Call Us Directly",
+                  info: "+250 784 869 860",
+                  delay: 1200,
+                },
+                {
+                  icon: Mail,
+                  title: "Send a Message",
+                  info: "dss@gmail.com",
+                  delay: 1400,
+                },
+              ].map((item, index) => (
+                <div
+                  key={`contact-item-${index}-${animationKey}`}
+                  className={`transition-all duration-800 hover:transform hover:scale-105 ${
+                    isVisible
+                      ? "animate-fadeInUp"
+                      : "opacity-0 translate-y-[30px]"
+                  }`}
+                  style={{
+                    animationDelay: `${item.delay}ms`,
+                    transitionDelay: isVisible ? `${item.delay}ms` : "0ms",
+                  }}
+                >
+                  <div className="flex items-start space-x-3">
+                    <div className="bg-[#F17105]/20 p-2 rounded-full hover:bg-[#F17105]/30 transition-colors duration-300 hover:scale-110 transform">
+                      <item.icon className="w-4 h-4 text-[#F17105]" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-1 text-[14px] hover:text-[#F17105] transition-colors">
+                        {item.title}
+                      </h3>
+                      <p className="text-gray-600 text-[12px] hover:text-[#F17105] transition-colors cursor-pointer">
+                        {item.info}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
 
           {/* Right Contact Form */}
-          <div className="w-full lg:w-1/2 ">
-            <div className="">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <Input
-                    name="name"
-                    type="text"
-                    placeholder="Your Name"
-                    required
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full h-12 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                  />
-                </div>
-
-                <div>
-                  <Input
-                    name="email"
-                    type="email"
-                    placeholder="Your Email"
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full h-12 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                  />
-                </div>
-
-                <div>
-                  <Input
-                    name="phone"
-                    type="tel"
-                    placeholder="Your Phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full h-12 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                  />
-                </div>
-
-                <div>
+          <div
+            key={`form-panel-${animationKey}`}
+            className={`w-full lg:w-1/2 transition-all duration-1000 ${
+              isVisible
+                ? "animate-fadeInRight animation-delay-800"
+                : "opacity-0 translate-x-[50px]"
+            }`}
+          >
+            <div className="h-[350px] bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {[
+                  {
+                    name: "name",
+                    type: "text",
+                    placeholder: "Your Name",
+                    required: true,
+                    delay: 1000,
+                  },
+                  {
+                    name: "email",
+                    type: "email",
+                    placeholder: "Your Email",
+                    required: true,
+                    delay: 1100,
+                  },
+                  {
+                    name: "phone",
+                    type: "tel",
+                    placeholder: "Your Phone",
+                    required: false,
+                    delay: 1200,
+                  },
+                ].map((field) => (
+                  <div
+                    key={`field-${field.name}-${animationKey}`}
+                    className={`transition-all duration-800 ${
+                      isVisible
+                        ? "animate-fadeInUp"
+                        : "opacity-0 translate-y-[30px]"
+                    }`}
+                    style={{
+                      animationDelay: `${field.delay}ms`,
+                      transitionDelay: isVisible ? `${field.delay}ms` : "0ms",
+                    }}
+                  >
+                    <Input
+                      name={field.name}
+                      type={field.type}
+                      placeholder={field.placeholder}
+                      required={field.required}
+                      value={formData[field.name as keyof typeof formData]}
+                      onChange={handleChange}
+                      className="w-full h-10 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F17105] focus:border-transparent hover:border-[#F17105]/50 transition-all duration-300"
+                    />
+                  </div>
+                ))}
+                <div
+                  key={`textarea-${animationKey}`}
+                  className={`transition-all duration-800 ${
+                    isVisible
+                      ? "animate-fadeInUp animation-delay-1300"
+                      : "opacity-0 translate-y-[30px]"
+                  }`}
+                >
                   <Textarea
                     name="message"
                     placeholder="Your Message"
                     required
-                    rows={6}
+                    rows={3}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F17105] focus:border-transparent resize-none hover:border-[#F17105]/50 transition-all duration-300"
                   />
                 </div>
-
-                <Button
-                  type="submit"
-                  className="w-[10rem] bg-[#354E33] hover:bg-green-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300"
+                <div
+                  key={`button-${animationKey}`}
+                  className={`transition-all duration-800 ${
+                    isVisible
+                      ? "animate-fadeInUp animation-delay-1400"
+                      : "opacity-0 translate-y-[30px]"
+                  }`}
                 >
-                  SEND MESSAGE
-                </Button>
+                  <Button
+                    type="submit"
+                    className={`w-[6rem] bg-[#F17105] hover:bg-[#F17105]/90 text-white text-[12px] font-semibold rounded-[5px] hover:scale-105 transition-all duration-300 ${
+                      isSubmitted ? "bg-green-500 hover:bg-green-600" : ""
+                    }`}
+                  >
+                    {isSubmitted ? "Sent!" : "Send"}
+                  </Button>
+                </div>
               </form>
             </div>
           </div>

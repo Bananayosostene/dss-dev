@@ -1,7 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 const teamMembers = [
   {
@@ -26,90 +34,170 @@ const teamMembers = [
     id: 4,
     name: "UWIMANA Marie Claire",
     position: "Safety Engineer",
-    image: "/images/member5.jpg?height=400&width=300",
+    image: "/images/member4.jpg?height=400&width=300",
   },
   {
     id: 5,
     name: "NIYONZIMA Jean Baptiste",
     position: "Operations Director",
-    image: "/images/member4.jpg?height=300&width=200",
+    image: "/images/member5.jpg?height=400&width=300",
+  },
+  {
+    id: 6,
+    name: "KAYITESI Alice",
+    position: "IT Security Specialist",
+    image: "/images/member6.jpg?height=400&width=300",
+  },
+  {
+    id: 7,
+    name: "NKURUNZIZA Paul",
+    position: "Software Developer",
+    image: "/images/member7.jpg?height=400&width=300",
+  },
+  {
+    id: 8,
+    name: "MUKAMANA Grace",
+    position: "Data Analyst",
+    image: "/images/member8.jpg?height=400&width=300",
+  },
+  {
+    id: 9,
+    name: "HABIMANA David",
+    position: "Network Administrator",
+    image: "/images/member9.jpg?height=400&width=300",
+  },
+  {
+    id: 10,
+    name: "UWIZEYE Sarah",
+    position: "UI/UX Designer",
+    image: "/images/member10.jpg?height=400&width=300",
   },
 ];
 
 export default function AboutSection() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [cardsPerView, setCardsPerView] = useState(3);
+  const [isVisible, setIsVisible] = useState(false);
+  const [animationKey, setAnimationKey] = useState(0); // Key to force re-animation
+  const sectionRef = useRef(null);
+
+  const autoplayRef = useRef(
+    Autoplay({
+      delay: 2000,
+      stopOnInteraction: true,
+      stopOnMouseEnter: true,
+    })
+  );
 
   useEffect(() => {
-    const updateCardsPerView = () => {
-      const width = window.innerWidth;
-      if (width < 768) setCardsPerView(1);
-      else if (width < 1024) setCardsPerView(2);
-      else setCardsPerView(3);
-    };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          setAnimationKey((prev) => prev + 1); // Increment key to trigger re-animation
+        } else {
+          setIsVisible(false); // Reset when out of view
+        }
+      },
+      {
+        threshold: 0.2, // Trigger when 20% of element is visible
+        rootMargin: "-50px 0px", // Add some margin to prevent too early triggering
+      }
+    );
 
-    updateCardsPerView();
-    window.addEventListener("resize", updateCardsPerView);
-    return () => window.removeEventListener("resize", updateCardsPerView);
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide(
-        (prev) => (prev + 1) % Math.ceil(teamMembers.length / cardsPerView)
-      );
-    }, 7000);
-    return () => clearInterval(interval);
-  }, [cardsPerView]);
-
-  const nextSlide = () => {
-    setCurrentSlide(
-      (prev) => (prev + 1) % Math.ceil(teamMembers.length / cardsPerView)
-    );
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide(
-      (prev) =>
-        (prev - 1 + Math.ceil(teamMembers.length / cardsPerView)) %
-        Math.ceil(teamMembers.length / cardsPerView)
-    );
-  };
-
   return (
-    <section className="px-4 bg-white">
-      <div className="w-full w-7xl mx-auto">
+    <section ref={sectionRef} className="px-4 bg-white">
+      <div className="max-w-7xl mx-auto">
         {/* Top Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 pb-4 gap-2 md:gap-6 items-center mb-6 md:mb-8">
-          <div className="space-y-4 md:space-y-6 font-sans">
+          <div
+            key={`left-${animationKey}`}
+            className={`space-y-4 md:space-y-6 font-sans transition-all duration-1000 ${
+              isVisible ? "animate-fadeInLeft" : "opacity-0 translate-x-[-50px]"
+            }`}
+          >
+            <div
+              key={`title-${animationKey}`}
+              className={`font-bold text-[#0066FF] text-[20px] transition-all duration-800 ${
+                isVisible
+                  ? "animate-fadeInUp animation-delay-200"
+                  : "opacity-0 translate-y-[30px]"
+              }`}
+            >
+              <h1>About Us</h1>
+            </div>
             <div>
-              <div className="inline-block bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
-                OUR STORY
+              <div
+                key={`badge-${animationKey}`}
+                className={`inline-block bg-[#F17105]/20 text-gray-700 px-4 py-2 rounded-full text-[12px] font-medium mb-4 hover:bg-[#F17105]/30 transition-all duration-800 ${
+                  isVisible
+                    ? "animate-fadeInUp animation-delay-400"
+                    : "opacity-0 translate-y-[30px]"
+                }`}
+              >
+                WHO WE ARE
               </div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#425D45] leading-tight">
-                CRAFTING <span className="text-[#8A9A88]">BEAUTIFUL</span>
+              <h2
+                key={`heading1-${animationKey}`}
+                className={`text-sm md:text-xl lg:text-2xl font-semibold text-[#F17105] leading-tight transition-all duration-800 ${
+                  isVisible
+                    ? "animate-fadeInUp animation-delay-600"
+                    : "opacity-0 translate-y-[30px]"
+                }`}
+              >
+                DELIVERING <span className="text-[#F17105]/50">INNOVATIVE</span>
               </h2>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#8A9A88] leading-tight mb-4">
-                GARDENS <span className="text-[#425D45]">SINCE '99</span>
+              <h2
+                key={`heading2-${animationKey}`}
+                className={`text-sm md:text-xl lg:text-2xl font-semibold text-[#F17105]/50 leading-tight mb-4 transition-all duration-800 ${
+                  isVisible
+                    ? "animate-fadeInUp animation-delay-700"
+                    : "opacity-0 translate-y-[30px]"
+                }`}
+              >
+                DIGITAL <span className="text-[#F17105]">SOLUTIONS</span>
               </h2>
             </div>
-            <div className="text-[#4B584F] text-sm leading-relaxed max-w-lg">
+            <div
+              key={`description-${animationKey}`}
+              className={`text-[#4B584F] text-sm leading-relaxed max-w-lg transition-all duration-800 ${
+                isVisible
+                  ? "animate-fadeInUp animation-delay-800"
+                  : "opacity-0 translate-y-[30px]"
+              }`}
+            >
               <p>
-                Established in 1999, our garden service has been transforming
-                outdoor spaces into thriving, beautiful landscapes for over two
-                decades. With a commitment to quality and personalized care, our
-                experienced team offers a full range of services, from design to
-                maintenance, ensuring your garden flourishes in every season.
+                Since our founding, Digital Support Solutions (DSS) has
+                empowered organizations through a full suite of ICT services.
+                From IT Helpdesk to Cybersecurity, Data Collection, Software
+                Development, and more, we combine expertise and technology to
+                help you thrive in a fast-moving digital world. Whether you're a
+                startup, NGO, or government institution, DSS is your partner in
+                building secure, efficient, and smart digital operations.
               </p>
             </div>
           </div>
-          <div className="relative flex justify-center lg:justify-end">
+          <div
+            key={`right-${animationKey}`}
+            className={`relative flex justify-center lg:justify-end transition-all duration-1000 ${
+              isVisible ? "animate-fadeInRight" : "opacity-0 translate-x-[50px]"
+            }`}
+          >
             <div className="relative w-full max-w-md lg:max-w-lg">
-              <div className="flex items-center justify-center">
+              <div className="flex items-center justify-center animate-pulse-slow">
                 <img
                   src="/images/logo.png"
                   alt="Company Logo"
-                  className="w-48 h-48 md:w-60 md:h-60 lg:w-72 lg:h-72 object-contain"
+                  className="w-48 h-48 md:w-60 md:h-60 lg:w-72 lg:h-72 object-contain hover:scale-105 transition-transform duration-500"
                 />
               </div>
             </div>
@@ -117,80 +205,88 @@ export default function AboutSection() {
         </div>
 
         {/* OUR TEAM */}
-        <div className="bg-[#E1EBE2] rounded-lg p-6 md:p-8 shadow-lg mb-8 md:mb-12">
-          <div className="text-center mb-8 md:mb-12">
-            <div className="text-sm uppercase tracking-wide text-gray-600 mb-2">
-              BEHIND THE SCENE
-            </div>
-            <h2 className="text-3xl font-bold text-[#425D45]">
-              OUR <span className="text-[#8A9A88]">TEAM</span>
+        <div
+          key={`team-${animationKey}`}
+          className={`bg-[#F17105]/50 rounded-lg shadow-lg mb-8 md:mb-12 transition-all duration-1000 ${
+            isVisible
+              ? "animate-fadeInUp animation-delay-1000"
+              : "opacity-0 translate-y-[50px]"
+          }`}
+        >
+          <div className="text-center py-5">
+            <h2
+              key={`team-title-${animationKey}`}
+              className={`text-1xl font-bold text-[#F17105] transition-all duration-800 ${
+                isVisible
+                  ? "animate-fadeInUp animation-delay-1200"
+                  : "opacity-0 translate-y-[30px]"
+              }`}
+            >
+              OUR <span className="text-[#F17105]/50">TEAM</span>
             </h2>
           </div>
 
-          <div className="relative overflow-hidden">
-            <div className="flex items-center">
-              <button
-                onClick={prevSlide}
-                className="absolute left-0 z-10 bg-[#425D45] text-white rounded-full p-2 hover:bg-[#4CAF50] transition-colors"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-
-              <div className="w-full overflow-hidden">
-                <div
-                  className="flex transition-transform duration-700 ease-in-out"
-                  style={{
-                    transform: `translateX(-${
-                      currentSlide * (100 / cardsPerView)
-                    }%)`,
-                    width: `${(teamMembers.length / cardsPerView) * 100}%`,
-                  }}
-                >
-                  {teamMembers.map((member) => (
-                    <div
-                      key={member.id}
-                      className={`w-full px-3 flex-shrink-0 ${
-                        cardsPerView === 1
-                          ? "sm:w-full"
-                          : cardsPerView === 2
-                          ? "md:w-1/2"
-                          : "lg:w-1/3"
+          <div className="px-8 pb-8">
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              plugins={[autoplayRef.current]}
+              className="w-full"
+              onMouseEnter={() => autoplayRef.current.stop()}
+              onMouseLeave={() => autoplayRef.current.play()}
+            >
+              <CarouselContent className="-ml-2 md:-ml-4">
+                {teamMembers.map((member, index) => (
+                  <CarouselItem
+                    key={member.id}
+                    className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3"
+                  >
+                    <Card
+                      key={`card-${member.id}-${animationKey}`}
+                      className={`bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:scale-105 transition-all duration-800 ${
+                        isVisible
+                          ? "animate-fadeInUp"
+                          : "opacity-0 translate-y-[50px]"
                       }`}
+                      style={{
+                        animationDelay: `${1400 + index * 100}ms`,
+                        transitionDelay: isVisible
+                          ? `${1400 + index * 100}ms`
+                          : "0ms",
+                      }}
                     >
-                      <div className="bg-white rounded-xl shadow-md overflow-hidden">
-                        <div className="w-full h-80 overflow-hidden">
-                          <img
-                            src={member.image}
-                            alt={member.name}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <div className="p-4">
-                          <h3 className="text-lg font-semibold text-gray-800">
-                            {member.name}
-                          </h3>
-                          <p className="text-sm text-gray-600">
-                            {member.position}
-                          </p>
-                        </div>
-                        <div className="flex justify-end p-4 pt-0">
-                          <div className="bg-[#425D45] text-white w-8 h-8 flex items-center justify-center rounded-full">
+                      <div className="w-full h-48 overflow-hidden relative group">
+                        {/* Image overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+                        <div className="absolute inset-0 bg-[#F17105]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+                        <img
+                          src={member.image || "/placeholder.svg"}
+                          alt={member.name}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                      </div>
+                      <CardContent className="p-3">
+                        <h3 className="text-[12px] font-semibold text-gray-800 group-hover:text-[#F17105] transition-colors">
+                          {member.name}
+                        </h3>
+                        <p className="text-[10px] text-gray-600 mb-3">
+                          {member.position}
+                        </p>
+                        <div className="flex justify-end">
+                          <div className="bg-[#F17105] text-white w-6 h-6 flex items-center justify-center rounded-full hover:bg-[#F17105]/80 hover:scale-110 transition-all duration-300 cursor-pointer text-xs shadow-lg">
                             f
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <button
-                onClick={nextSlide}
-                className="absolute right-0 z-10 bg-[#425D45] text-white rounded-full p-2 hover:bg-[#4CAF50] transition-colors"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-2 hover:scale-110 transition-transform" />
+              <CarouselNext className="right-2 hover:scale-110 transition-transform" />
+            </Carousel>
           </div>
         </div>
       </div>

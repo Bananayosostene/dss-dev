@@ -5,7 +5,6 @@ import Link from "next/link";
 import {
   Menu,
   X,
-  Leaf,
   Facebook,
   Twitter,
   Instagram,
@@ -22,11 +21,10 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
 
   const navigation = [
-    { name: "HOME", href: "/" },
-    { name: "SERVICES", href: "" },
-    { name: "ABOUT US", href: "#" },
-    { name: "BLOG", href: "#" },
-    { name: "CONTACT", href: "#" },
+    { name: "Home", href: "/" },
+    { name: "Services", href: "/services" },
+    { name: "About us", href: "/" },
+    { name: "Contact", href: "/contact" },
   ];
 
   useEffect(() => {
@@ -43,19 +41,19 @@ export default function Header() {
     <>
       <header className="absolute top-0 left-0 right-0 z-50 w-full">
         {/* Top Bar */}
-        <div className="bg-[#354E33] text-white py-2">
+        <div className="bg-[#000000] text-white py-2 animate-slideDown">
           <div className="container mx-auto flex flex-wrap justify-between items-center">
-            <div className="flex items-center text-sm space-x-6">
+            <div className="flex items-center text-[12px] space-x-6 animate-fadeInLeft">
               <span>24/7 Support — Whether Remote or On-Site</span>
               <span>contact@DSS.com</span>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center text-[12px] space-x-4 animate-fadeInRight">
               <div className="flex space-x-4">
-                <Facebook className="w-5 h-5 hover:text-green-300 cursor-pointer" />
-                <Twitter className="w-5 h-5 hover:text-green-300 cursor-pointer" />
-                <Instagram className="w-5 h-5 hover:text-green-300 cursor-pointer" />
-                <Youtube className="w-5 h-5 hover:text-green-300 cursor-pointer" />
-                <MessageCircle className="w-5 h-5 hover:text-green-300 cursor-pointer" />
+                <Facebook className="w-5 h-5 text-[#18a0fb] cursor-pointer hover:scale-110 transition-transform" />
+                <Twitter className="w-5 h-5 text-[#1da1f2] cursor-pointer hover:scale-110 transition-transform" />
+                <Instagram className="w-5 h-5 text-[#e1306c] cursor-pointer hover:scale-110 transition-transform" />
+                <Youtube className="w-5 h-5 text-[#ff0000] cursor-pointer hover:scale-110 transition-transform" />
+                <MessageCircle className="w-5 h-5 text-[#0088cc] cursor-pointer hover:scale-110 transition-transform" />
               </div>
             </div>
           </div>
@@ -63,25 +61,30 @@ export default function Header() {
 
         {/* Main Navigation */}
         <nav
-          className={`top-0 left-0 right-0 z-40 transition-colors duration-300 ${
-            scrolled ? "bg-[#354E33] fixed" : "bg-transparent"
+          className={`top-0 left-0 right-0 z-40 transition-all duration-500 animate-slideDown ${
+            scrolled ? "bg-[#000000] fixed" : "bg-transparent"
           }`}
         >
           <div className="container mx-auto">
             <div className="flex justify-between items-center py-4">
               {/* Logo */}
-              <Link href="/" className="flex items-center space-x-2 text-white">
-                <Leaf className="w-8 h-8" />
-                <span className="text-2xl font-bold">DSS</span>
+              <Link
+                href="/"
+                className="flex items-center space-x-2 text-white animate-fadeInLeft animation-delay-300"
+              >
+                <span className="text-[16px] font-bold hover:text-[#F17105] transition-colors">
+                  DSS
+                </span>
               </Link>
 
               {/* Desktop Navigation */}
-              <div className="hidden lg:flex items-center space-x-8">
-                {navigation.map((item) => (
+              <div className="hidden lg:flex items-center space-x-8 animate-fadeInUp animation-delay-500">
+                {navigation.map((item, index) => (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="text-white hover:text-green-300 transition-colors font-medium"
+                    className="text-white hover:text-[#F17105] transition-colors font-medium animate-fadeInUp"
+                    style={{ animationDelay: `${600 + index * 100}ms` }}
                   >
                     {item.name}
                   </Link>
@@ -89,13 +92,10 @@ export default function Header() {
               </div>
 
               {/* CTA Button and Menu */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 animate-fadeInRight animation-delay-700">
                 <div>
-                  <Button
-                    variant="outline"
-                    className="bg-transparent border-gray-400 rounded-[20px] text-white text-sm py-1 px-4 hover:text-white hover:bg-[#354E33] h-auto min-h-0"
-                  >
-                    GET IN TOUCH
+                  <Button className="bg-transparent border-gray-400 rounded-[20px] text-white text-sm py-1 px-4 bg-[#F17105] hover:bg-[#F17105]/50 hover:scale-105 transition-all duration-300 h-auto min-h-0">
+                    Get in touch
                   </Button>
                 </div>
                 <div>
@@ -104,18 +104,17 @@ export default function Header() {
                     onClick={() => setIsSideDrawerOpen(true)}
                     className="hidden lg:block"
                   >
-                    <AlignRight className="w-10 h-5 text-white cursor-pointer hover:text-green-300 transition-colors" />
+                    <AlignRight className="w-10 h-5 text-white cursor-pointer hover:text-[#F17105] hover:scale-110 transition-all duration-300" />
                   </button>
-
                   {/* Mobile Menu Button */}
                   <button
                     className="lg:hidden text-white"
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                   >
                     {isMenuOpen ? (
-                      <X className="w-6 h-6" />
+                      <X className="w-6 h-6 hover:scale-110 transition-transform" />
                     ) : (
-                      <Menu className="w-6 h-6" />
+                      <Menu className="w-6 h-6 hover:scale-110 transition-transform" />
                     )}
                   </button>
                 </div>
@@ -124,23 +123,21 @@ export default function Header() {
 
             {/* Mobile Navigation */}
             {isMenuOpen && (
-              <div className="lg:hidden py-4 border-t border-green-700">
+              <div className="lg:hidden py-4 border-t border-[#F17105]/30 bg-[#000000] animate-slideDown">
                 <div className="flex flex-col space-y-4">
-                  {navigation.map((item) => (
+                  {navigation.map((item, index) => (
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="text-white hover:text-green-300 transition-colors font-medium"
+                      className="text-white hover:text-[#F17105] transition-colors text-[16px] font-medium animate-fadeInLeft"
+                      style={{ animationDelay: `${index * 100}ms` }}
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.name}
                     </Link>
                   ))}
-                  <Button
-                    variant="outline"
-                    className="border-green-300 text-green-300 hover:bg-green-300 hover:text-green-900 w-fit"
-                  >
-                    GET IN TOUCH
+                  <Button className="text-white text-[16px] bg-[#F17105] hover:bg-[#F17105]/50 w-fit animate-fadeInLeft animation-delay-400">
+                    Get in touch
                   </Button>
                 </div>
               </div>
