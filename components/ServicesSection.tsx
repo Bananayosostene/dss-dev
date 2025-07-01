@@ -115,14 +115,12 @@ export default function ServicesSection() {
   return (
     <section className="py-12 bg-gray-50">
       <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-10">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-5">
+          <h2 className="text-2xl font-bold text-[#0066FF]">
             Our Services
           </h2>
         </div>
 
-        {/* Services Grid - 2 per row */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {services.map((service) => (
             <div
@@ -130,14 +128,12 @@ export default function ServicesSection() {
               className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
             >
               <div className="flex">
-                {/* Left Side - Image with Number Overlay */}
                 <div className="relative w-2/5 h-48">
                   <img
                     src={service.image || "/images/service1.png"}
                     alt={service.title}
                     className="w-full h-full object-cover"
                   />
-                  {/* Number Overlay - Top Left */}
                   <div className="absolute top-3 left-3 bg-[#0066FF]/90 text-white rounded-lg px-2 py-1 backdrop-blur-sm">
                     <div className="text-lg font-bold leading-none">
                       {service.id.toString().padStart(2, "0")}
@@ -146,7 +142,6 @@ export default function ServicesSection() {
                   </div>
                 </div>
 
-                {/* Right Side - Content */}
                 <div className="w-3/5 p-4 flex flex-col justify-between bg-[#E1EBE2]">
                   <div>
                     <h3 className="text-[16px] font-bold text-gray-900 mb-2 leading-tight">
@@ -157,7 +152,6 @@ export default function ServicesSection() {
                     </p>
                   </div>
 
-                  {/* Bottom Section - Comments/Status */}
                   <div className="flex justify-between ">
                     <div className="flex items-center text-gray-500 text-[14px] cursor-pointer">
                       <MessageSquare className="w-4 h-4 mr-2" />

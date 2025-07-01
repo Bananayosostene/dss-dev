@@ -115,9 +115,19 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className=" bg-white px-[4rem]">
+    <section ref={sectionRef} className="  bg-white py-12 px-[4rem]">
       <div className="max-w-7xl mx-auto ">
         {/* Top Section */}
+        <div
+          key={`title-${animationKey}`}
+          className={`flex justify-center itmes-center mb-5 font-bold text-[#0066FF] text-2xl transition-all duration-800 ${
+            isVisible
+              ? "animate-fadeInUp animation-delay-200"
+              : "opacity-0 translate-y-[30px]"
+          }`}
+        >
+          <h1>About Us</h1>
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 pb-4 gap-2 md:gap-6 items-center mb-6 md:mb-8">
           <div
             key={`left-${animationKey}`}
@@ -125,16 +135,6 @@ export default function AboutSection() {
               isVisible ? "animate-fadeInLeft" : "opacity-0 translate-x-[-50px]"
             }`}
           >
-            <div
-              key={`title-${animationKey}`}
-              className={`font-bold text-[#0066FF] text-[20px] transition-all duration-800 ${
-                isVisible
-                  ? "animate-fadeInUp animation-delay-200"
-                  : "opacity-0 translate-y-[30px]"
-              }`}
-            >
-              <h1>About Us</h1>
-            </div>
             <div>
               <div
                 key={`badge-${animationKey}`}
@@ -169,7 +169,7 @@ export default function AboutSection() {
             </div>
             <div
               key={`description-${animationKey}`}
-              className={`text-[#4B584F] text-sm leading-relaxed max-w-lg transition-all duration-800 ${
+              className={`text-[#4B584F] text-[12px] leading-relaxed max-w-lg transition-all duration-800 ${
                 isVisible
                   ? "animate-fadeInUp animation-delay-800"
                   : "opacity-0 translate-y-[30px]"

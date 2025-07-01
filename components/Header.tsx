@@ -43,17 +43,17 @@ export default function Header() {
         {/* Top Bar */}
         <div className="bg-[#000000] text-white py-2 px-[2rem] animate-slideDown">
           <div className="container mx-auto flex flex-wrap justify-between items-center">
-            <div className="flex items-center text-[12px] space-x-6 animate-fadeInLeft">
+            <div className="hidden md:flex items-center text-[12px] space-x-6 animate-fadeInLeft">
               <span>24/7 Support — Whether Remote or On-Site</span>
               <span>contact@DSS.com</span>
             </div>
-            <div className="flex items-center text-[12px] space-x-4 animate-fadeInRight">
+            <div className="flex items-center space-x-4 animate-fadeInRight">
               <div className="flex space-x-4">
-                <Facebook className="w-5 h-5 text-[#18a0fb] cursor-pointer hover:scale-110 transition-transform" />
-                <Twitter className="w-5 h-5 text-[#1da1f2] cursor-pointer hover:scale-110 transition-transform" />
-                <Instagram className="w-5 h-5 text-[#e1306c] cursor-pointer hover:scale-110 transition-transform" />
-                <Youtube className="w-5 h-5 text-[#ff0000] cursor-pointer hover:scale-110 transition-transform" />
-                <MessageCircle className="w-5 h-5 text-[#0088cc] cursor-pointer hover:scale-110 transition-transform" />
+                <Facebook className="w-4 h-4 text-[#18a0fb] cursor-pointer hover:scale-110 transition-transform" />
+                <Twitter className="w-4 h-4 text-[#1da1f2] cursor-pointer hover:scale-110 transition-transform" />
+                <Instagram className="w-4 h-4 text-[#e1306c] cursor-pointer hover:scale-110 transition-transform" />
+                <Youtube className="w-4 h-4 text-[#ff0000] cursor-pointer hover:scale-110 transition-transform" />
+                <MessageCircle className="w-4 h-4 text-[#0088cc] cursor-pointer hover:scale-110 transition-transform" />
               </div>
             </div>
           </div>
@@ -72,7 +72,7 @@ export default function Header() {
                 href="/"
                 className="flex items-center space-x-2 text-white animate-fadeInLeft animation-delay-300"
               >
-                <span className="text-[16px] font-bold hover:text-[#F17105] transition-colors">
+                <span className="text-[14px] hover:text-[#F17105] transition-colors">
                   DSS
                 </span>
               </Link>
@@ -83,7 +83,7 @@ export default function Header() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="text-white hover:text-[#F17105] transition-colors font-medium animate-fadeInUp"
+                    className="text-white hover:text-[#F17105] text-[14px] transition-colors animate-fadeInUp"
                     style={{ animationDelay: `${600 + index * 100}ms` }}
                   >
                     {item.name}
@@ -129,14 +129,14 @@ export default function Header() {
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="text-white hover:text-[#F17105] transition-colors text-[16px] font-medium animate-fadeInLeft"
+                      className="text-white hover:text-[#F17105] transition-colors text-[14px] font-medium animate-fadeInLeft"
                       style={{ animationDelay: `${index * 100}ms` }}
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.name}
                     </Link>
                   ))}
-                  <Button className="text-white text-[16px] bg-[#F17105] hover:bg-[#F17105]/50 w-fit animate-fadeInLeft animation-delay-400">
+                  <Button className="text-white text-[14px] bg-[#F17105] hover:bg-[#F17105]/50 w-fit animate-fadeInLeft animation-delay-400">
                     Get in touch
                   </Button>
                 </div>

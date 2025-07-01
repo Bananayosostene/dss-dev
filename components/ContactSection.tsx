@@ -223,7 +223,7 @@ export default function ContactSection() {
                       required={field.required}
                       value={formData[field.name as keyof typeof formData]}
                       onChange={handleChange}
-                      className="w-full h-10 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F17105] focus:border-transparent hover:border-[#F17105]/50 transition-all duration-300"
+                      className="w-full h-10 px-4 border text-[12px] placeholder:text-[12px]  border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F17105] focus:border-transparent hover:border-[#F17105]/50 transition-all duration-300"
                     />
                   </div>
                 ))}
@@ -242,7 +242,7 @@ export default function ContactSection() {
                     rows={3}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F17105] focus:border-transparent resize-none hover:border-[#F17105]/50 transition-all duration-300"
+                    className="w-full px-4 py-2 text-[12px] placeholder:text-[12px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F17105] focus:border-transparent resize-none hover:border-[#F17105]/50 transition-all duration-300"
                   />
                 </div>
                 <div

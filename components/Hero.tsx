@@ -13,7 +13,7 @@ export default function Hero() {
         <h1 className="text-3xl md:text-5xl lg:text-7xl text-[#F17105] font-bold mb-6 leading-tight animate-fadeInUp animation-delay-800">
           Digital Support Solutions
         </h1>
-        <p className="text-[14px] md:text-[16px] mb-8 max-w-2xl mx-auto animate-fadeInUp animation-delay-1000">
+        <p className="text-[12px] md:text-[14px] mb-8 max-w-2xl mx-auto animate-fadeInUp animation-delay-1000">
           Your trusted IT partner providing comprehensive technology solutions
           to drive your business forward.
         </p>
