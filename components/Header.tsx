@@ -69,7 +69,7 @@ export default function Header() {
                 href="/"
                 className="flex items-center space-x-2 text-white animate-fadeInLeft animation-delay-300"
               >
-                <span className="text-[14px] hover:text-[#F17105] transition-colors">
+                <span className="text-[16px] hover:text-[#F17105] transition-colors">
                   DSS
                 </span>
               </Link>
@@ -79,7 +79,7 @@ export default function Header() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="text-white hover:text-[#F17105] text-[14px] transition-colors animate-fadeInUp"
+                    className="text-white hover:text-[#F17105] text-[16px] transition-colors animate-fadeInUp"
                     style={{ animationDelay: `${600 + index * 100}ms` }}
                   >
                     {item.name}
@@ -121,14 +121,14 @@ export default function Header() {
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="text-white hover:text-[#F17105] transition-colors text-[14px] font-medium animate-fadeInLeft"
+                      className="text-white hover:text-[#F17105] transition-colors text-[16px] font-medium animate-fadeInLeft"
                       style={{ animationDelay: `${index * 100}ms` }}
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.name}
                     </Link>
                   ))}
-                  <Button className="text-white text-[14px] bg-[#F17105] hover:bg-[#F17105]/50 w-fit animate-fadeInLeft animation-delay-400">
+                  <Button className="text-white text-[16px] bg-[#F17105] hover:bg-[#F17105]/50 w-fit animate-fadeInLeft animation-delay-400">
                     Get in touch
                   </Button>
                 </div>
