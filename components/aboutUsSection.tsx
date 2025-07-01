@@ -76,7 +76,7 @@ const teamMembers = [
 
 export default function AboutSection() {
   const [isVisible, setIsVisible] = useState(false);
-  const [animationKey, setAnimationKey] = useState(0); // Key to force re-animation
+  const [animationKey, setAnimationKey] = useState(0); 
   const sectionRef = useRef(null);
 
   const autoplayRef = useRef(
@@ -92,14 +92,14 @@ export default function AboutSection() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          setAnimationKey((prev) => prev + 1); // Increment key to trigger re-animation
+          setAnimationKey((prev) => prev + 1); 
         } else {
-          setIsVisible(false); // Reset when out of view
+          setIsVisible(false); 
         }
       },
       {
-        threshold: 0.2, // Trigger when 20% of element is visible
-        rootMargin: "-50px 0px", // Add some margin to prevent too early triggering
+        threshold: 0.2, 
+        rootMargin: "-50px 0px", 
       }
     );
 
@@ -115,7 +115,7 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="  bg-white py-12 px-[4rem]">
+    <section ref={sectionRef} id="about" className="  bg-white py-12 px-[4rem]">
       <div className="max-w-7xl mx-auto ">
         {/* Top Section */}
         <div

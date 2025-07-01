@@ -23,7 +23,7 @@ export default function Header() {
   const navigation = [
     { name: "Home", href: "/" },
     { name: "Services", href: "/services" },
-    { name: "About us", href: "/" },
+    { name: "About us", href: "/#about" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -40,7 +40,6 @@ export default function Header() {
   return (
     <>
       <header className="absolute top-0 left-0 right-0 z-50 w-full ">
-        {/* Top Bar */}
         <div className="bg-[#000000] text-white py-2 px-[2rem] animate-slideDown">
           <div className="container mx-auto flex flex-wrap justify-between items-center">
             <div className="hidden md:flex items-center text-[12px] space-x-6 animate-fadeInLeft">
@@ -59,7 +58,6 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Main Navigation */}
         <nav
           className={`top-0 left-0 right-0 z-40 transition-all duration-500 animate-slideDown px-[2rem] ${
             scrolled ? "bg-[#000000] fixed" : "bg-transparent"
@@ -67,7 +65,6 @@ export default function Header() {
         >
           <div className="container mx-auto">
             <div className="flex justify-between items-center py-4">
-              {/* Logo */}
               <Link
                 href="/"
                 className="flex items-center space-x-2 text-white animate-fadeInLeft animation-delay-300"
@@ -77,7 +74,6 @@ export default function Header() {
                 </span>
               </Link>
 
-              {/* Desktop Navigation */}
               <div className="hidden lg:flex items-center space-x-8 animate-fadeInUp animation-delay-500">
                 {navigation.map((item, index) => (
                   <Link
@@ -91,7 +87,6 @@ export default function Header() {
                 ))}
               </div>
 
-              {/* CTA Button and Menu */}
               <div className="flex items-center gap-2 animate-fadeInRight animation-delay-700">
                 <div>
                   <Button className="bg-transparent border-gray-400 rounded-[20px] text-white text-sm py-1 px-4 bg-[#F17105] hover:bg-[#F17105]/50 hover:scale-105 transition-all duration-300 h-auto min-h-0">
@@ -99,14 +94,12 @@ export default function Header() {
                   </Button>
                 </div>
                 <div>
-                  {/* Desktop Side Drawer Toggle */}
                   <button
                     onClick={() => setIsSideDrawerOpen(true)}
                     className="hidden lg:block"
                   >
                     <AlignRight className="w-10 h-5 text-white cursor-pointer hover:text-[#F17105] hover:scale-110 transition-all duration-300" />
                   </button>
-                  {/* Mobile Menu Button */}
                   <button
                     className="lg:hidden text-white"
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -121,7 +114,6 @@ export default function Header() {
               </div>
             </div>
 
-            {/* Mobile Navigation */}
             {isMenuOpen && (
               <div className="lg:hidden py-4 border-t border-[#F17105]/30 bg-[#000000] animate-slideDown">
                 <div className="flex flex-col space-y-4">
@@ -146,7 +138,6 @@ export default function Header() {
         </nav>
       </header>
 
-      {/* Side Drawer */}
       <SideDrawer
         isOpen={isSideDrawerOpen}
         onClose={() => setIsSideDrawerOpen(false)}
