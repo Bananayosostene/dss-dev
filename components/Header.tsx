@@ -49,10 +49,22 @@ export default function Header() {
             <div className="flex items-center space-x-4 animate-fadeInRight">
               <div className="flex space-x-4">
                 <Facebook className="w-4 h-4 text-[#18a0fb] cursor-pointer hover:scale-110 transition-transform" />
-                <Twitter className="w-4 h-4 text-[#1da1f2] cursor-pointer hover:scale-110 transition-transform" />
+                <a
+                  href="https://x.com/DigitalSupSol"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Twitter className="w-4 h-4 text-[#1da1f2] cursor-pointer hover:scale-110 transition-transform" />
+                </a>
                 <Instagram className="w-4 h-4 text-[#e1306c] cursor-pointer hover:scale-110 transition-transform" />
                 <Youtube className="w-4 h-4 text-[#ff0000] cursor-pointer hover:scale-110 transition-transform" />
+                <a
+                  href="https://wa.me/250788300967"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                 <MessageCircle className="w-4 h-4 text-[#0088cc] cursor-pointer hover:scale-110 transition-transform" />
+                </a>
               </div>
             </div>
           </div>

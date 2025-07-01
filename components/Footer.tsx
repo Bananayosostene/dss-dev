@@ -56,6 +56,13 @@ export default function Footer() {
     "ICT4D Solutions",
     "IT Consulting",
   ];
+  const socialLinks = [
+    { icon: Facebook, href: "https://facebook.com" },
+    { icon: Twitter, href: "https://x.com/DigitalSupSol" },
+    { icon: Instagram, href: "https://instagram.com" },
+    { icon: Youtube, href: "https://youtube.com" },
+    { icon: MessageCircle, href: "https://wa.me/250788300967" },
+  ];
 
   return (
     <footer
@@ -111,20 +118,25 @@ export default function Footer() {
                     : "opacity-0 translate-y-[30px]"
                 }`}
               >
-                {[Facebook, Twitter, Instagram, Youtube, MessageCircle].map(
-                  (Icon, index) => (
-                    <Icon
-                      key={`social-${index}-${animationKey}`}
-                      className="w-4 h-4 hover:text-[#F17105] cursor-pointer transition-all duration-300 hover:scale-125 hover:-translate-y-1"
-                      style={{
-                        animationDelay: `${700 + index * 100}ms`,
-                        transitionDelay: isVisible
-                          ? `${700 + index * 100}ms`
-                          : "0ms",
-                      }}
-                    />
-                  )
-                )}
+
+            {socialLinks.map(({ icon: Icon, href }, index) => (
+              <a
+                key={`social-${index}-${animationKey}`}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#F17105] transition-all duration-300"
+              >
+                <Icon
+                  className="w-4 h-4 cursor-pointer hover:scale-125 hover:-translate-y-1 transition-transform"
+                  style={{
+                    animationDelay: `${700 + index * 100}ms`,
+                    transitionDelay: isVisible ? `${700 + index * 100}ms` : "0ms",
+                  }}
+                />
+              </a>
+            ))}
+
               </div>
             </div>
 

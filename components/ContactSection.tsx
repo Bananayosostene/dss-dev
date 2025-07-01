@@ -134,7 +134,7 @@ export default function ContactSection() {
                 {
                   icon: Phone,
                   title: "Call Us Directly",
-                  info: "+250 784 869 860",
+                  info: "+250 788 300 967",
                   delay: 1200,
                 },
                 {

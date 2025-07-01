@@ -71,10 +71,21 @@ export default function SideDrawer({ isOpen, onClose }: SideDrawerProps) {
             </p>
             <div className="flex space-x-3">
               <Facebook className="w-4 h-4 hover:text-orange-200 cursor-pointer transition-all duration-200 hover:scale-125 hover:-translate-y-1" />
-              <Twitter className="w-4 h-4 hover:text-orange-200 cursor-pointer transition-all duration-200 hover:scale-125 hover:-translate-y-1" />
+              <a
+                href="https://x.com/DigitalSupSol"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Twitter className="w-4 h-4 hover:text-orange-200 cursor-pointer hover:scale-110 transition-transform" />
+              </a>
               <Instagram className="w-4 h-4 hover:text-orange-200 cursor-pointer transition-all duration-200 hover:scale-125 hover:-translate-y-1" />
               <Youtube className="w-4 h-4 hover:text-orange-200 cursor-pointer transition-all duration-200 hover:scale-125 hover:-translate-y-1" />
+              <a
+                href="https://wa.me/250788300967"
+                target="_blank"
+                rel="noopener noreferrer">
               <MessageCircle className="w-4 h-4 hover:text-orange-200 cursor-pointer transition-all duration-200 hover:scale-125 hover:-translate-y-1" />
+              </a>
             </div>
           </div>
 
