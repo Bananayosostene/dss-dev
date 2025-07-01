@@ -39,9 +39,9 @@ export default function Header() {
 
   return (
     <>
-      <header className="absolute top-0 left-0 right-0 z-50 w-full">
+      <header className="absolute top-0 left-0 right-0 z-50 w-full ">
         {/* Top Bar */}
-        <div className="bg-[#000000] text-white py-2 animate-slideDown">
+        <div className="bg-[#000000] text-white py-2 px-[2rem] animate-slideDown">
           <div className="container mx-auto flex flex-wrap justify-between items-center">
             <div className="flex items-center text-[12px] space-x-6 animate-fadeInLeft">
               <span>24/7 Support — Whether Remote or On-Site</span>
@@ -61,7 +61,7 @@ export default function Header() {
 
         {/* Main Navigation */}
         <nav
-          className={`top-0 left-0 right-0 z-40 transition-all duration-500 animate-slideDown ${
+          className={`top-0 left-0 right-0 z-40 transition-all duration-500 animate-slideDown px-[2rem] ${
             scrolled ? "bg-[#000000] fixed" : "bg-transparent"
           }`}
         >

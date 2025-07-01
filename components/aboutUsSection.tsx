@@ -115,8 +115,8 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="px-4 bg-white">
-      <div className="max-w-7xl mx-auto">
+    <section ref={sectionRef} className=" bg-white px-[4rem]">
+      <div className="max-w-7xl mx-auto ">
         {/* Top Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 pb-4 gap-2 md:gap-6 items-center mb-6 md:mb-8">
           <div

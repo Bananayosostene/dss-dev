@@ -60,7 +60,7 @@ export default function Footer() {
   return (
     <footer
       ref={footerRef}
-      className="relative bg-cover bg-center bg-no-repeat text-white"
+      className="relative bg-cover bg-center bg-no-repeat text-white px-[4rem]"
       style={{ backgroundImage: "url(/images/footer-bg.png)" }}
     >
       <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/70 to-black/80"></div>
