@@ -67,7 +67,11 @@ export default function ContactSection() {
   };
 
   return (
-    <section ref={sectionRef} className="py-5 px-[4rem] bg-gray-50">
+    <section
+      ref={sectionRef}
+      id="contact-form"
+      className="py-5 px-[4rem] bg-gray-50"
+    >
       <div className="max-w-7xl mx-auto">
         <div
           key={`header-${animationKey}`}

@@ -1,4 +1,5 @@
 import { MessageSquare, Send } from "lucide-react";
+import Link from "next/link";
 
 const services = [
   {
@@ -158,7 +159,9 @@ export default function ServicesSection() {
                       <span>{service.comments}</span>
                     </div>
                     <div>
+                      <Link href={"/contact/#contact-form"}>
                       <Send className="w-4 h-4 text-[#F17105] cursor-pointer" />
+                      </Link>
                     </div>
                   </div>
                 </div>
