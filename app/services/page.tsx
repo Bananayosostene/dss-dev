@@ -15,7 +15,7 @@ export default function ServicesPage() {
         <Header />
 
         <div className="absolute inset-0 flex items-center justify-start">
-          <div className="container mx-auto px-[4rem] max-w-7xl">
+          <div className="container mx-auto px-[3rem] sm:px-[3rem] md:px-[3rem] lg:px-[4rem] max-w-7xl">
             <div className="text-white max-w-2xl pt-32">
               <nav className="mb-6">
                 <div className="flex items-center space-x-2 text-sm">

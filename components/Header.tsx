@@ -41,7 +41,7 @@ export default function Header() {
     <>
       <header className="absolute top-0 left-0 right-0 z-50 w-full ">
         <div className="bg-[#000000] text-white py-2 px-[2rem] animate-slideDown">
-          <div className="container mx-auto flex flex-wrap justify-between items-center">
+          <div className="container mx-auto flex flex-wrap items-center justify-center md:justify-between">
             <div className="hidden md:flex items-center text-[12px] space-x-6 animate-fadeInLeft">
               <span>24/7 Support — Whether Remote or On-Site</span>
               <span>contact@DSS.com</span>
@@ -63,7 +63,7 @@ export default function Header() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                <MessageCircle className="w-4 h-4 text-[#0088cc] cursor-pointer hover:scale-110 transition-transform" />
+                  <MessageCircle className="w-4 h-4 text-[#0088cc] cursor-pointer hover:scale-110 transition-transform" />
                 </a>
               </div>
             </div>
@@ -101,9 +101,11 @@ export default function Header() {
 
               <div className="flex items-center gap-2 animate-fadeInRight animation-delay-700">
                 <div>
-                  <Button className="bg-transparent border-gray-400 rounded-[20px] text-white text-sm py-1 px-4 bg-[#F17105] hover:bg-[#F17105]/50 hover:scale-105 transition-all duration-300 h-auto min-h-0">
+                  <Link href={"/contact"}>
+                  <Button className="hidden lg:block bg-transparent border-gray-400 rounded-[20px] text-white text-sm py-1 px-4 bg-[#F17105] hover:bg-[#F17105]/50 hover:scale-105 transition-all duration-300 h-auto min-h-0">
                     Get in touch
                   </Button>
+                  </Link>
                 </div>
                 <div>
                   <button
@@ -140,9 +142,11 @@ export default function Header() {
                       {item.name}
                     </Link>
                   ))}
+                  <Link href={"/contact"}>
                   <Button className="text-white text-[16px] bg-[#F17105] hover:bg-[#F17105]/50 w-fit animate-fadeInLeft animation-delay-400">
                     Get in touch
                   </Button>
+                  </Link>
                 </div>
               </div>
             )}

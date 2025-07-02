@@ -70,7 +70,7 @@ export default function ContactSection() {
     <section
       ref={sectionRef}
       id="contact-form"
-      className="py-5 px-[4rem] bg-gray-50"
+      className="py-5 px-[3rem] sm:px-[3rem] md:px-[3rem] lg:px-[4rem] bg-gray-50"
     >
       <div className="max-w-7xl mx-auto">
         <div

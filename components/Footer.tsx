@@ -67,7 +67,7 @@ export default function Footer() {
   return (
     <footer
       ref={footerRef}
-      className="relative bg-cover bg-center bg-no-repeat text-white px-[4rem]"
+      className="relative bg-cover bg-center bg-no-repeat text-white px-[3rem] sm:px-[3rem] md:px-[3rem] lg:px-[4rem]"
       style={{ backgroundImage: "url(/images/footer-bg.png)" }}
     >
       <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/70 to-black/80"></div>
@@ -118,25 +118,25 @@ export default function Footer() {
                     : "opacity-0 translate-y-[30px]"
                 }`}
               >
-
-            {socialLinks.map(({ icon: Icon, href }, index) => (
-              <a
-                key={`social-${index}-${animationKey}`}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#F17105] transition-all duration-300"
-              >
-                <Icon
-                  className="w-4 h-4 cursor-pointer hover:scale-125 hover:-translate-y-1 transition-transform"
-                  style={{
-                    animationDelay: `${700 + index * 100}ms`,
-                    transitionDelay: isVisible ? `${700 + index * 100}ms` : "0ms",
-                  }}
-                />
-              </a>
-            ))}
-
+                {socialLinks.map(({ icon: Icon, href }, index) => (
+                  <a
+                    key={`social-${index}-${animationKey}`}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#F17105] transition-all duration-300"
+                  >
+                    <Icon
+                      className="w-4 h-4 cursor-pointer hover:scale-125 hover:-translate-y-1 transition-transform"
+                      style={{
+                        animationDelay: `${700 + index * 100}ms`,
+                        transitionDelay: isVisible
+                          ? `${700 + index * 100}ms`
+                          : "0ms",
+                      }}
+                    />
+                  </a>
+                ))}
               </div>
             </div>
 

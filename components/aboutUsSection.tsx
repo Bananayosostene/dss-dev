@@ -76,7 +76,7 @@ const teamMembers = [
 
 export default function AboutSection() {
   const [isVisible, setIsVisible] = useState(false);
-  const [animationKey, setAnimationKey] = useState(0); 
+  const [animationKey, setAnimationKey] = useState(0);
   const sectionRef = useRef(null);
 
   const autoplayRef = useRef(
@@ -92,14 +92,14 @@ export default function AboutSection() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          setAnimationKey((prev) => prev + 1); 
+          setAnimationKey((prev) => prev + 1);
         } else {
-          setIsVisible(false); 
+          setIsVisible(false);
         }
       },
       {
-        threshold: 0.2, 
-        rootMargin: "-50px 0px", 
+        threshold: 0.2,
+        rootMargin: "-50px 0px",
       }
     );
 
@@ -115,7 +115,11 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="about" className="  bg-white py-12 px-[4rem]">
+    <section
+      ref={sectionRef}
+      id="about"
+      className="  bg-white py-12 px-[3rem] sm:px-[3rem] md:px-[3rem] lg:px-[4rem]"
+    >
       <div className="max-w-7xl mx-auto ">
         {/* Top Section */}
         <div
