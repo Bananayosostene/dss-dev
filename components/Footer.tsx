@@ -76,7 +76,6 @@ export default function Footer() {
       <div className="relative z-10">
         <div className="container mx-auto px-4 py-12">
           <div className="grid lg:grid-cols-6 gap-6">
-            {/* Company Info */}
             <div
               key={`company-${animationKey}`}
               className={`lg:col-span-2 transition-all duration-1000 ${
