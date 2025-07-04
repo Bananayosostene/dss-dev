@@ -1,11 +1,19 @@
 "use client";
-
 import type React from "react";
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Clock, MapPin, Phone, Mail } from "lucide-react";
+import {
+  Clock,
+  MapPin,
+  Phone,
+  Mail,
+  CheckCircle,
+  AlertCircle,
+  Loader2,
+} from "lucide-react";
+import { sendContactEmail } from "@/lib/send-email";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -15,7 +23,11 @@ export default function ContactSection() {
     message: "",
   });
   const [isVisible, setIsVisible] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
   const [animationKey, setAnimationKey] = useState(0);
   const sectionRef = useRef(null);
 
@@ -34,11 +46,9 @@ export default function ContactSection() {
         rootMargin: "-50px 0px",
       }
     );
-
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
-
     return () => {
       if (sectionRef.current) {
         observer.unobserve(sectionRef.current);
@@ -46,15 +56,39 @@ export default function ContactSection() {
     };
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: "" });
 
-    setTimeout(() => {
-      setFormData({ name: "", email: "", phone: "", message: "" });
-      setIsSubmitted(false);
-    }, 2000);
+    try {
+      const result = await sendContactEmail(formData);
+
+      if (result.success) {
+        setSubmitStatus({
+          type: "success",
+          message: result.message,
+        });
+        // Reset form after successful submission
+        setFormData({ name: "", email: "", phone: "", message: "" });
+      } else {
+        setSubmitStatus({
+          type: "error",
+          message: result.message,
+        });
+      }
+    } catch (error) {
+      setSubmitStatus({
+        type: "error",
+        message: "An unexpected error occurred. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+      // Clear status message after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus({ type: null, message: "" });
+      }, 5000);
+    }
   };
 
   const handleChange = (
@@ -103,7 +137,6 @@ export default function ContactSection() {
             possible.
           </p>
         </div>
-
         <div className="flex items-center justify-between gap-10 md:flex-row flex-col">
           {/* Left */}
           <div
@@ -173,7 +206,6 @@ export default function ContactSection() {
               ))}
             </div>
           </div>
-
           {/* Right Contact Form */}
           <div
             key={`form-panel-${animationKey}`}
@@ -227,7 +259,8 @@ export default function ContactSection() {
                       required={field.required}
                       value={formData[field.name as keyof typeof formData]}
                       onChange={handleChange}
-                      className="w-full h-10 px-4 border text-[12px] placeholder:text-[12px]  border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F17105] focus:border-transparent hover:border-[#F17105]/50 transition-all duration-300"
+                      disabled={isSubmitting}
+                      className="w-full h-10 px-4 border text-[12px] placeholder:text-[12px] border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F17105] focus:border-transparent hover:border-[#F17105]/50 transition-all duration-300 disabled:opacity-50"
                     />
                   </div>
                 ))}
@@ -246,9 +279,29 @@ export default function ContactSection() {
                     rows={3}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 text-[12px] placeholder:text-[12px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F17105] focus:border-transparent resize-none hover:border-[#F17105]/50 transition-all duration-300"
+                    disabled={isSubmitting}
+                    className="w-full px-4 py-2 text-[12px] placeholder:text-[12px] border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F17105] focus:border-transparent resize-none hover:border-[#F17105]/50 transition-all duration-300 disabled:opacity-50"
                   />
                 </div>
+
+                {/* Status Message */}
+                {submitStatus.type && (
+                  <div
+                    className={`flex items-center space-x-2 p-3 rounded-lg text-sm ${
+                      submitStatus.type === "success"
+                        ? "bg-green-50 text-green-700 border border-green-200"
+                        : "bg-red-50 text-red-700 border border-red-200"
+                    }`}
+                  >
+                    {submitStatus.type === "success" ? (
+                      <CheckCircle className="w-4 h-4" />
+                    ) : (
+                      <AlertCircle className="w-4 h-4" />
+                    )}
+                    <span>{submitStatus.message}</span>
+                  </div>
+                )}
+
                 <div
                   key={`button-${animationKey}`}
                   className={`transition-all duration-800 ${
@@ -259,11 +312,17 @@ export default function ContactSection() {
                 >
                   <Button
                     type="submit"
-                    className={`w-[6rem] bg-[#F17105] hover:bg-[#F17105]/90 text-white text-[12px] font-semibold rounded-[5px] hover:scale-105 transition-all duration-300 ${
-                      isSubmitted ? "bg-green-500 hover:bg-green-600" : ""
-                    }`}
+                    disabled={isSubmitting}
+                    className="w-[6rem] bg-[#F17105] hover:bg-[#F17105]/90 text-white text-[12px] font-semibold rounded-[5px] hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                   >
-                    {isSubmitted ? "Sent!" : "Send"}
+                    {isSubmitting ? (
+                      <div className="flex items-center space-x-2">
+                        <Loader2 className="w-3 h-3 animate-spin" />
+                        <span>Sending...</span>
+                      </div>
+                    ) : (
+                      "Send"
+                    )}
                   </Button>
                 </div>
               </form>
