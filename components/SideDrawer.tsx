@@ -172,7 +172,7 @@ export default function SideDrawer({ isOpen, onClose }: SideDrawerProps) {
                   Send a Message
                 </h4>
                 <p className="text-orange-100/90 hover:text-orange-200 transition-colors cursor-pointer text-sm hover:underline">
-                  contact@DSS.com
+                  info@dss.com
                 </p>
               </div>
             </div>

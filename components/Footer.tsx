@@ -224,7 +224,7 @@ export default function Footer() {
                   { title: "Office Location", info: "KN 8 Ave", delay: 1200 },
                   {
                     title: "Send a Message",
-                    info: "contact@DSS.com",
+                    info: "info@dss.com",
                     delay: 1400,
                   },
                 ].map((item, index) => (
